@@ -226,6 +226,7 @@ function VideoViewer(props: Props) {
         sourceType={forcePlayer ? 'video/mp4' : contentType}
         onPlayerReady={onPlayerReady}
         startMuted={autoplayIfEmbedded}
+        toggleVideoTheaterMode={toggleVideoTheaterMode}
       />
     </div>
   );
