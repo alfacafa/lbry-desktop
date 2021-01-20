@@ -43,25 +43,25 @@ function Ads(props: Props) {
     }
   }, [type]);
 
-  useEffect(() => {
-    if (SHOW_ADS && type === 'google') {
-      let script1;
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-      const d = document;
-      const s = 'script';
-
-      try {
-        let fjs = d.getElementsByTagName(s)[0];
-        script1 = d.createElement(s);
-        script1.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
-        // $FlowFixMe
-        fjs.parentNode.insertBefore(script1, fjs);
-      } catch (e) {}
-      return () => {
-        document.body.removeChild(script1);
-      };
-    }
-  }, [type]);
+  // useEffect(() => {
+  //   if (SHOW_ADS && type === 'google') {
+  //     let script1;
+  //     (window.adsbygoogle = window.adsbygoogle || []).push({});
+  //     const d = document;
+  //     const s = 'script';
+  //
+  //     try {
+  //       let fjs = d.getElementsByTagName(s)[0];
+  //       script1 = d.createElement(s);
+  //       script1.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+  //       // $FlowFixMe
+  //       fjs.parentNode.insertBefore(script1, fjs);
+  //     } catch (e) {}
+  //     return () => {
+  //       document.body.removeChild(script1);
+  //     };
+  //   }
+  // }, [type]);
 
   useEffect(() => {
     if (SHOW_ADS && !IS_MOBILE && type === 'sidebar') {
