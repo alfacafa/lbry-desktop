@@ -25,19 +25,41 @@ function Ads(props: Props) {
 
   useEffect(() => {
     if (SHOW_ADS && type === 'video') {
+      let script;
       try {
         const d = document;
         const s = 'script';
         const n = 'playbuzz-stream';
-
-        let js;
         let fjs = d.getElementsByTagName(s)[0];
-        js = d.createElement(s);
-        js.className = n;
-        js.src = 'https://stream.playbuzz.com/player/62d1eb10-e362-4873-99ed-c64a4052b43b';
+        script = d.createElement(s);
+        script.className = n;
+        script.src = 'https://stream.playbuzz.com/player/62d1eb10-e362-4873-99ed-c64a4052b43b';
         // $FlowFixMe
-        fjs.parentNode.insertBefore(js, fjs);
+        fjs.parentNode.insertBefore(script, fjs);
       } catch (e) {}
+      return () => {
+        document.body.removeChild(script);
+      };
+    }
+  }, [type]);
+
+  useEffect(() => {
+    if (SHOW_ADS && type === 'google') {
+      let script1;
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+      const d = document;
+      const s = 'script';
+
+      try {
+        let fjs = d.getElementsByTagName(s)[0];
+        script1 = d.createElement(s);
+        script1.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+        // $FlowFixMe
+        fjs.parentNode.insertBefore(script1, fjs);
+      } catch (e) {}
+      return () => {
+        document.body.removeChild(script1);
+      };
     }
   }, [type]);
 
@@ -78,11 +100,7 @@ function Ads(props: Props) {
     </I18nMessage>
   );
 
-  if (!SHOW_ADS) {
-    return false;
-  }
-
-  return type === 'video' ? (
+  const videoAd = (
     <div className="ads__claim-item">
       <div id="62d1eb10-e362-4873-99ed-c64a4052b43b" />
       <div
@@ -94,7 +112,20 @@ function Ads(props: Props) {
         <p>{adsSignInDriver}</p>
       </div>
     </div>
-  ) : (
+  );
+
+  const googleAd = (
+    <ins
+      className="adsbygoogle"
+      style={{ display: 'block' }}
+      data-ad-format="fluid"
+      data-ad-layout-key="-e5+6n-34-bt+x0"
+      data-ad-client="ca-pub-7102138296475003"
+      data-ad-slot="6052061397"
+    />
+  );
+
+  const sidebarAd = (
     <div className="ads-wrapper">
       <p>Ads</p>
       <p>{adsSignInDriver}</p>
@@ -107,6 +138,21 @@ function Ads(props: Props) {
       />
     </div>
   );
+
+  if (!SHOW_ADS) {
+    return false;
+  }
+  if (type === 'video') {
+    return videoAd;
+  }
+
+  if (type === 'google') {
+    return googleAd;
+  }
+
+  if (type === 'sidebar') {
+    return sidebarAd;
+  }
 }
 
 export default withRouter(Ads);
