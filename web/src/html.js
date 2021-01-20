@@ -24,9 +24,8 @@ function insertToHead(fullHtml, htmlToInsert, skipAdwords) {
       ${htmlToInsert || buildOgMetadata()}
       <script src="/public/ui-${jsBundleId}.js" async></script>
       ${
-        skipAdwords
-          ? ''
-          : `<script data-ad-client="ca-pub-7102138296475003" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>`
+        skipAdwords ? '' : ''
+        //: `<script data-ad-client="ca-pub-7102138296475003" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>`
       }
     `
   );
